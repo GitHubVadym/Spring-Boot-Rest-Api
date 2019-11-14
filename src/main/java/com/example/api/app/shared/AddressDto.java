@@ -7,8 +7,8 @@ import java.io.Serializable;
 
 @Accessors(chain = true)
 @Data
-public class AddressDTO implements Serializable {
-    private static final long serialVersionUID = 2942449281719400618L;
+public class AddressDto implements Serializable {
+    private static final long serialVersionUID = 8714331148219987493L;
     private long id;
     private String addressId;
     private String city;
@@ -16,5 +16,5 @@ public class AddressDTO implements Serializable {
     private String street;
     private String postalCode;
     private String type;
-    private UserDTO userDetails;
+    private UserDto userDetails;
 }

@@ -2,11 +2,10 @@ package com.example.api.app.ui.model.response;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.hateoas.RepresentationModel;
 
 @Accessors(chain = true)
 @Data
-public class AddressRest extends RepresentationModel {
+public class AddressRest {
     private String addressId;
     private String city;
     private String country;

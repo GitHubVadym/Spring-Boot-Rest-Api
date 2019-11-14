@@ -1,28 +1,15 @@
 package com.example.api.app.utils;
 
-import org.springframework.stereotype.Controller;
+import org.modelmapper.internal.bytebuddy.utility.RandomString;
+import org.springframework.stereotype.Component;
 
-import java.security.SecureRandom;
-import java.util.Random;
-
-@Controller
+@Component
 public class Utils {
-    private final Random RANDOM = new SecureRandom();
-    private final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-    public String getUserId(int len) {
-        return generateRandomString(len);
+    private Utils() {
     }
 
-    public String getAddressId(int len) {
-        return generateRandomString(len);
-    }
-
-    private String generateRandomString(int len) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
-            sb.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
-        }
-        return sb.toString();
+    public String generateRandomString(int len) {
+        RandomString randomString = new RandomString(len);
+        return randomString.nextString();
     }
 }

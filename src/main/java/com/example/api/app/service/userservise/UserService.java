@@ -1,16 +1,20 @@
 package com.example.api.app.service.userservise;
 
-import com.example.api.app.shared.UserDTO;
+import com.example.api.app.shared.UserDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService extends UserDetailsService {
-    UserDTO createUser(UserDTO userDTO);
+import java.util.List;
 
-    UserDTO updateUser(String id, UserDTO userDTO);
+public interface UserService extends UserDetailsService {
+    UserDto createUser(UserDto userDto);
+
+    UserDto updateUser(String id, UserDto userDto);
 
     void deleteUser(String id);
 
-    UserDTO getUser(String email);
+    UserDto getUser(String email);
 
-    UserDTO getUserById(String userId);
+    List<UserDto> getUsers(int page, int limit);
+
+    UserDto getUserById(String userId);
 }

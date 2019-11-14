@@ -4,7 +4,7 @@ import com.example.api.app.io.entity.AddressEntity;
 import com.example.api.app.io.entity.UserEntity;
 import com.example.api.app.io.repositories.AddressRepository;
 import com.example.api.app.io.repositories.UserRepository;
-import com.example.api.app.shared.AddressDTO;
+import com.example.api.app.shared.AddressDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,36 +15,36 @@ import java.util.List;
 @Service
 public class AddressServiceImpl implements AddressService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    AddressRepository addressRepository;
+    private AddressRepository addressRepository;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @Override
-    public List<AddressDTO> getAddresses(String userId) {
-        List<AddressDTO> addressDTOS = new ArrayList<>();
+    public List<AddressDto> getAddresses(String userId) {
+        List<AddressDto> addressDtos = new ArrayList<>();
 
         UserEntity userEntity = userRepository.findByUserId(userId);
         if (userEntity == null) {
-            return addressDTOS;
+            return addressDtos;
         }
 
         Iterable<AddressEntity> addresses = addressRepository.findAllByUserDetails(userEntity);
-        addresses.forEach(addressEntity -> addressDTOS.add(modelMapper.map(addressEntity, AddressDTO.class)));
+        addresses.forEach(addressEntity -> addressDtos.add(modelMapper.map(addressEntity, AddressDto.class)));
 
-        return addressDTOS;
+        return addressDtos;
     }
 
     @Override
-    public AddressDTO getAddress(String addressId) {
-        AddressDTO addressDTO = null;
+    public AddressDto getAddress(String addressId) {
+        AddressDto addressDto = null;
         AddressEntity byAddressId = addressRepository.findByAddressId(addressId);
         if (byAddressId != null) {
-            addressDTO = modelMapper.map(byAddressId, AddressDTO.class);
+            addressDto = modelMapper.map(byAddressId, AddressDto.class);
         }
-        return addressDTO;
+        return addressDto;
     }
 }

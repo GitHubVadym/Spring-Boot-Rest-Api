@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import static com.example.api.app.security.SecurityConstants.H2_CONSOLE;
 import static com.example.api.app.security.SecurityConstants.SIGN_UP_URL;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -23,6 +24,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL)
                 .permitAll()
+                .antMatchers(H2_CONSOLE)
+                .permitAll()
+                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -30,6 +35,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .addFilter(new AuthorizationFilter(authenticationManager()))
                 .sessionManagement()
                 .sessionCreationPolicy(STATELESS);
+
+        http.headers().frameOptions().disable();
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
